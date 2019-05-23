@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      <ion-icon name="menu" (click)="openFirst()"></ion-icon> Grocery list
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-menu side="start" menuId="first" contentId="tab3ContentId">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Hugo Scaramal<ion-icon class="SettingsIcon" name="settings"></ion-icon></ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item><ion-icon name="alert"></ion-icon>Important</ion-item>
+      <ion-item><ion-icon name="list"></ion-icon>All</ion-item>
+      <ion-item><ion-icon name="calendar"></ion-icon>Scheduled</ion-item>
+      <ion-item><ion-icon name="pizza"></ion-icon>Grocery</ion-item>
+      <ion-item><ion-icon name="cart"></ion-icon>Shopping list</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Bananas</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Milk</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+<ion-router-outlet id="tab3ContentId"></ion-router-outlet>
