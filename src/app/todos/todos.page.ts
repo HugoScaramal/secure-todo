@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { List, ListItem, DataService } from '../data.service';
 
 @Component({
   selector: 'app-todos',
@@ -7,20 +8,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./todos.page.scss'],
 })
 export class TodosPage implements OnInit {
-listId:string;
-  constructor(private route:ActivatedRoute) { 
+  listId: string;
+  list: List;
+  listItems: ListItem[];
+
+  constructor(private route: ActivatedRoute,
+    private dataService: DataService) {
 
   }
 
   ngOnInit() {
     this.listId = this.route.snapshot.paramMap.get('id');
-    if(this.listId){
-      //Load data
-   }
+    if (this.listId) {
+      this.dataService.getListItems(this.listId).subscribe(result => {
+        this.listItems = result;
+      });
+      this.dataService.getList(this.listId).subscribe(result => this.list = result);
+    }
   }
-
-  todoChanged() {
-    console.log('list changed');
-  }
-
 }

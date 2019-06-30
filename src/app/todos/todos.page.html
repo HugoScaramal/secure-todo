@@ -1,24 +1,21 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <ion-title color="primary">todos</ion-title>
+      <ion-title color="primary">{{ list.title }}</ion-title>
     </ion-list-header>
-    <ion-item>
-      <ion-input type="text" debounce="300" (ionChange)="todoChanged()" required value="Banana"></ion-input>
-    </ion-item>
     <ion-item>
       <ion-input type="text" value="Milk"></ion-input>
     </ion-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button>
-        <ion-icon name="menu" routerLink="/menu" ></ion-icon>
+    <ion-fab-button routerLink="/menu">
+      <ion-icon name="menu"></ion-icon>
     </ion-fab-button>
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-button>
-      <ion-icon name="settings"></ion-icon>
+      <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

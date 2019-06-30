@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { List, DataService } from '../data.service';
 import { UserData } from 'blockstack/lib/auth/authApp';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-menu',
@@ -12,6 +13,8 @@ export class MenuComponent implements OnInit {
   userData: UserData;
   lists: List[];
   editMode: boolean = false;
+  newMode: boolean = false;
+  @ViewChild('newItemInput') newInput: IonInput;
 
   constructor(private dataService: DataService,
     private router: Router) { }
@@ -23,8 +26,10 @@ export class MenuComponent implements OnInit {
   }
 
   newListClicked() {
-    this.lists.push(this.dataService.createNewList());
-    this.editMode = true;
+    this.newMode = true;
+    setTimeout(() => {
+      this.newInput.setFocus();
+    }), 500;
   }
 
   editListClicked() {
@@ -34,13 +39,31 @@ export class MenuComponent implements OnInit {
 
   saveListClicked() {
     console.log('save list clicked');
-    console.log(this.lists);
-    this.dataService.saveList(this.lists);
+    if (this.newMode) {
+      let newItem = this.dataService.createNewList();
+      newItem.title = this.newInput.value;
+      this.lists.push(newItem);
+      this.newInput.getInputElement().then(value => value.value = '');
+    }
+    this.dataService.saveList(this.lists).subscribe(resultSave => {
+      this.dataService.getLists().subscribe((result) => this.lists = result);
+    });
     this.editMode = false;
-    this.dataService.getLists().subscribe((result) => this.lists = result);
+    this.newMode = false;
+
   }
   openListItems(id) {
-    console.log(id);
-    this.router.navigateByUrl(`todos/${id}`);
+    if (!this.editMode)
+      this.router.navigateByUrl(`todos/${id}`);
+  }
+
+  removeList(listToRemove: List) {
+    this.dataService.removeList(listToRemove, this.lists).subscribe(removeResult => {
+      console.log(`Removed = ${removeResult}`);
+      this.dataService.getLists().subscribe(retrieveResult => {
+        this.lists = retrieveResult;
+        console.log(`Updated list ${retrieveResult}`);
+      });
+    });
   }
 }

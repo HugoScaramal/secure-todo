@@ -5,19 +5,29 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let list of lists" [routerLink]="'/todos/'+list.id">
-      <ion-label *ngIf="!editMode">{{ list.title }}</ion-label>
-      <ion-input type="text" *ngIf="editMode" [(ngModel)]="list.title"></ion-input>
+    <ion-item-sliding *ngFor="let list of lists">
+      <ion-item-options side="start">
+        <ion-item-option (click)="removeList(list)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item (click)="openListItems(list.id)">
+        <ion-label *ngIf="!editMode">{{ list.title }}</ion-label>
+        <ion-input type="text" *ngIf="editMode" [(ngModel)]="list.title"></ion-input>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item *ngIf="newMode">
+      <ion-input type="text" #newItemInput></ion-input>
     </ion-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="newListClicked()" *ngIf="!editMode" id="newListButton">
+    <ion-fab-button (click)="newListClicked()" *ngIf="!editMode && !newMode" id="newListButton">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button (click)="editListClicked()" *ngIf="!editMode" id="editListButton">
+    <ion-fab-button (click)="editListClicked()" *ngIf="!editMode && !newMode" id="editListButton">
       <ion-icon name="create"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button (click)="saveListClicked()" *ngIf="editMode" id="saveListButton">
+    <ion-fab-button (click)="saveListClicked()" *ngIf="editMode || newMode" id="saveListButton">
       <ion-icon name="save"></ion-icon>
     </ion-fab-button>
   </ion-fab>
