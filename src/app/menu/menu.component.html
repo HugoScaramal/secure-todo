@@ -5,8 +5,8 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let list of lists">
-      <ion-label *ngIf="!editMode" [routerLink]="'/todos/'+list.id">{{ list.title }}</ion-label>
+    <ion-item *ngFor="let list of lists" [routerLink]="'/todos/'+list.id">
+      <ion-label *ngIf="!editMode">{{ list.title }}</ion-label>
       <ion-input type="text" *ngIf="editMode" [(ngModel)]="list.title"></ion-input>
     </ion-item>
   </ion-list>
