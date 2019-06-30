@@ -7,14 +7,18 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MenuComponent } from './menu/menu.component';
+import { NewItemComponent } from './new-item/new-item.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib_1.__decorate([
         NgModule({
-            declarations: [AppComponent],
+            declarations: [AppComponent, MenuComponent, NewItemComponent],
             entryComponents: [],
-            imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+            imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
             providers: [
                 StatusBar,
                 SplashScreen,

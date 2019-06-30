@@ -1,13 +1,24 @@
-<ion-menu contentId="bodyContent" side="start" menuId="first" >
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Hugo Scaramal<ion-icon class="SettingsIcon" name="settings"></ion-icon>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let list of lists">{{ list.title }}</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ userData.profile.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let list of lists">
+      <ion-label *ngIf="!editMode" [routerLink]="'/todos/'+list.id">{{ list.title }}</ion-label>
+      <ion-input type="text" *ngIf="editMode" [(ngModel)]="list.title"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="newListClicked()" *ngIf="!editMode" id="newListButton">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="editListClicked()" *ngIf="!editMode" id="editListButton">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="saveListClicked()" *ngIf="editMode" id="saveListButton">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

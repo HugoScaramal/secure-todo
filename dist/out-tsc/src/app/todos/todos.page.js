@@ -5,6 +5,9 @@ var TodosPage = /** @class */ (function () {
     }
     TodosPage.prototype.ngOnInit = function () {
     };
+    TodosPage.prototype.todoChanged = function () {
+        console.log('list changed');
+    };
     TodosPage = tslib_1.__decorate([
         Component({
             selector: 'app-todos',

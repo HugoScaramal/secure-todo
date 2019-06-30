@@ -1,41 +1,18 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { DataService } from './data.service';
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar) {
+    function AppComponent(platform, splashScreen, statusBar, dataService, menu) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
-        this.appPages = [
-            {
-                title: 'Important',
-                url: '/todos',
-                icon: 'alert'
-            },
-            {
-                title: 'All',
-                url: '/todos',
-                icon: 'list'
-            },
-            {
-                title: 'Scheduled',
-                url: '/todos',
-                icon: 'calendar'
-            },
-            {
-                title: 'Grocery',
-                url: '/todos',
-                icon: 'pizza'
-            },
-            {
-                title: 'Shopping list',
-                url: '/todos',
-                icon: 'cart'
-            },
-        ];
+        this.dataService = dataService;
+        this.menu = menu;
         this.initializeApp();
+        this.dataService.signIn();
     }
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
@@ -43,6 +20,8 @@ var AppComponent = /** @class */ (function () {
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
         });
+        // this.menu.enable(true, 'first');
+        // this.menu.open('first');
     };
     AppComponent = tslib_1.__decorate([
         Component({
@@ -51,7 +30,9 @@ var AppComponent = /** @class */ (function () {
         }),
         tslib_1.__metadata("design:paramtypes", [Platform,
             SplashScreen,
-            StatusBar])
+            StatusBar,
+            DataService,
+            MenuController])
     ], AppComponent);
     return AppComponent;
 }());

@@ -12,11 +12,12 @@ import { MenuComponent } from './menu/menu.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, NewItemComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), FormsModule],
   providers: [
     StatusBar,
     SplashScreen,
