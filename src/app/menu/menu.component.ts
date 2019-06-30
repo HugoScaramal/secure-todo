@@ -50,8 +50,8 @@ export class MenuComponent implements OnInit {
     });
     this.editMode = false;
     this.newMode = false;
-
   }
+
   openListItems(id) {
     if (!this.editMode)
       this.router.navigateByUrl(`todos/${id}`);

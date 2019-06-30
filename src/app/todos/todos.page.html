@@ -1,21 +1,35 @@
 <ion-content>
   <ion-list>
-    <ion-list-header>
+    <ion-list-header *ngIf="list">
       <ion-title color="primary">{{ list.title }}</ion-title>
     </ion-list-header>
-    <ion-item>
-      <ion-input type="text" value="Milk"></ion-input>
+    <ion-item-sliding *ngFor="let item of listItems">
+      <ion-item-options side="start">
+        <ion-item-option (click)="removeItem(item)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-label *ngIf="!editMode">{{ item.title }}</ion-label>
+        <ion-input type="text" *ngIf="editMode" [(ngModel)]="item.title"></ion-input>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item *ngIf="newMode">
+      <ion-input type="text" #newItemInput></ion-input>
     </ion-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button routerLink="/menu">
+    <ion-fab-button *ngIf="!newMode && !editMode" routerLink="/menu">
       <ion-icon name="menu"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button>
+    <ion-fab-button *ngIf="!newMode && !editMode" (click)="newItemClicked()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button>
+    <ion-fab-button *ngIf="!newMode && !editMode" (click)="editItemClicked()">
       <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button *ngIf="newMode || editMode" (click)="saveItemClicked()">
+      <ion-icon name="save"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

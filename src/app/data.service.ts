@@ -40,10 +40,18 @@ export class DataService {
   }
 
   removeList(listToRemove: List, currentList: List[]): Observable<boolean> {
+    const fileUrl = `/${listToRemove.id}.json`;
+    try { this.userSession.deleteFile(fileUrl); } catch (e) { console.log(`Error when trying to delete file [${fileUrl}]. Error: [${e}]`) }
     const listIndex = currentList.indexOf(listToRemove);
     currentList.splice(listIndex, 1);
     return this.saveList(currentList);
   }
+  removeListItem(listId: string, itemToRemove: ListItem, currentList: ListItem[]): Observable<boolean> {
+    const listIndex = currentList.indexOf(itemToRemove);
+    currentList.splice(listIndex, 1);
+    return this.saveListItems(listId, currentList);
+  }
+
 
   saveList(list: List[]): Observable<boolean> {
     return from(this.userSession.putFile('/lists.json', JSON.stringify(list), { encrypt: this.useEncryption })
@@ -76,12 +84,15 @@ export class DataService {
   }
 
   createNewList() {
-    return { title: '', items: [], id: makeUUID4() } as List;
+    return { title: '', id: makeUUID4() } as List;
+  }
+
+  createNewItem() {
+    return { title: '', id: makeUUID4(), status: 'Pending' } as ListItem;
   }
 
   getListItems(listId): Observable<ListItem[]> {
     const fileUrl = `/${listId}.json`;
-    console.log(`Tryign to  listItems [${fileUrl}]`);
     return from(this.userSession.getFile(fileUrl, { decrypt: this.useEncryption })
       .then((fileContents: any) => {
         if (fileContents) {
@@ -116,6 +127,5 @@ export class List {
 
 export class ListItem {
   title: string;
-  content: string;
-  status: string;
+  status: string; // Pending or Completed
 }
