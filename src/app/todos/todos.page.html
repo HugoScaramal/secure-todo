@@ -18,17 +18,23 @@
       <ion-input type="text" #newItemInput></ion-input>
     </ion-item>
   </ion-list>
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button *ngIf="!newMode && !editMode" routerLink="/menu">
-      <ion-icon name="menu"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" id="backButtonContainer" *ngIf="!editMode && !newMode">
+    <ion-fab-button routerLink="/menu">
+      <ion-icon name="arrow-round-back"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button *ngIf="!newMode && !editMode" (click)="newItemClicked()">
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" *ngIf="!editMode && !newMode">
+    <ion-fab-button (click)="newItemClicked()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button *ngIf="!newMode && !editMode" (click)="editItemClicked()">
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="editButtonContainer" *ngIf="!editMode && !newMode">
+    <ion-fab-button (click)="editItemClicked()">
       <ion-icon name="create"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button *ngIf="newMode || editMode" (click)="saveItemClicked()">
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" *ngIf="editMode || newMode">
+    <ion-fab-button (click)="saveItemClicked()">
       <ion-icon name="save"></ion-icon>
     </ion-fab-button>
   </ion-fab>
