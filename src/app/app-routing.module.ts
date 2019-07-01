@@ -4,7 +4,7 @@ import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '', pathMatch: 'full', redirectTo: 'menu' },
   { path: 'home', component: HomeComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'todos', loadChildren: './todos/todos.module#TodosPageModule' }

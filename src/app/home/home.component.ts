@@ -12,11 +12,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private dataService: DataService,
     private router: Router) { }
+  signedIn: boolean = false;
 
   ngOnInit() {
-    if (this.dataService.isSignedIn()) {
-      this.router.navigateByUrl('/menu');
-    }
+    this.router.navigateByUrl('/menu');
   }
 
   signIn() {
