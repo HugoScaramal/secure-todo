@@ -18,7 +18,6 @@ export class AppComponent {
     private menu: MenuController
   ) {
     this.initializeApp();
-    this.dataService.signIn();
   }
 
   initializeApp() {

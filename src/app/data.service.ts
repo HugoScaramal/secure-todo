@@ -79,6 +79,13 @@ export class DataService {
     }
   }
 
+  isSignedIn() {
+    if (this.userSession && this.userSession.isUserSignedIn())
+      return true;
+    else
+      return false;
+  }
+
   getUserData() {
     return this.userData;
   }

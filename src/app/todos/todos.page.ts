@@ -16,10 +16,7 @@ export class TodosPage implements OnInit {
   newMode: Boolean = false;
   @ViewChild('newItemInput') newInput: IonInput;
 
-  constructor(private route: ActivatedRoute,
-    private dataService: DataService) {
-
-  }
+  constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
   ngOnInit() {
     this.listId = this.route.snapshot.paramMap.get('id');
