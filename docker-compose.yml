@@ -1,0 +1,7 @@
+dev:
+    build: .
+    ports:
+        - "4200:4200"
+    volumes:
+        - .:/usr/src/app
+    command: yarn run start
